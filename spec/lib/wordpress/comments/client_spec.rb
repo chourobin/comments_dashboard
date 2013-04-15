@@ -1,41 +1,15 @@
-require 'nokogiri'
-
-module Wordpress
-	module Comments
-		class Client
-			attr_reader :url
-
-			# initialize the client
-			# @param [String] the url of the comments resource
-			def initialize url
-				@url = url
-			end
-
-			# parse xml
-			# @param [Data] the xml data
-			# @return [Array] an array of comments hashes from xml data
-			def parse xml
-				doc = Nokogiri::XML xml
-				doc.search('item').map do |doc_item|
-					item = {}
-					item[:link] = doc_item.at('link').text
-					item
-				end
-			end
-
-		end
-	end
-end
+require_relative '../../../../lib/wordpress/comments/client'
 
 #
 # Specs
 #
 describe Wordpress::Comments::Client do
 
+	let(:client) { Wordpress::Comments::Client.new "http://mashable.com/comments/feed" }
+
 	describe "#initialize" do
 
 		it "stores a URL" do
-			client = Wordpress::Comments::Client.new "http://mashable.com/comments/feed"
 			expect(client.url).to eq "http://mashable.com/comments/feed"
 		end
 
@@ -45,12 +19,17 @@ describe Wordpress::Comments::Client do
 
 		let(:xml) { File.read(File.join('spec', 'fixtures', 'feed.xml')) }
 
+		let(:comments) { client.parse xml }
+		let(:comment) { comments.first }
+
 		it "extracts the link" do
-			client = Wordpress::Comments::Client.new "http://mashable.com/comments/feed"
-			comments = client.parse xml
-			comment = comments.first
 			link = "http://mashable.com/2012/07/18/ipad-early-photos/comment-page-1/#comment-18239503"
 			expect(comment[:link]).to eq link
+		end
+
+		it "extracts the title" do
+			title = "Comment on The Earliest Photos of Apple’s iPad Hit the Web by Fido"
+			expect(comment[:title]).to eq title
 		end
 
 	end
