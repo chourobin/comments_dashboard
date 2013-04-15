@@ -37,6 +37,8 @@ gem 'jbuilder', '~> 1.0.1'
 # To use debugger
 # gem 'debugger'
 
+gem 'nokogiri'
+
 group :test, :development do
 	gem 'rspec-rails', '~> 2.0'
 end

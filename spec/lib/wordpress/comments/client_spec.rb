@@ -1,11 +1,28 @@
+require 'nokogiri'
+
 module Wordpress
 	module Comments
 		class Client
 			attr_reader :url
 
+			# initialize the client
+			# @param [String] the url of the comments resource
 			def initialize url
 				@url = url
 			end
+
+			# parse xml
+			# @param [Data] the xml data
+			# @return [Array] an array of comments hashes from xml data
+			def parse xml
+				doc = Nokogiri::XML xml
+				doc.search('item').map do |doc_item|
+					item = {}
+					item[:link] = doc_item.at('link').text
+					item
+				end
+			end
+
 		end
 	end
 end
@@ -33,7 +50,7 @@ describe Wordpress::Comments::Client do
 			comments = client.parse xml
 			comment = comments.first
 			link = "http://mashable.com/2012/07/18/ipad-early-photos/comment-page-1/#comment-18239503"
-			expect(comment.link).to eq link
+			expect(comment[:link]).to eq link
 		end
 
 	end

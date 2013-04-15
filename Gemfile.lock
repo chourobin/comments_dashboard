@@ -54,6 +54,7 @@ GEM
     mime-types (1.22)
     minitest (4.7.1)
     multi_json (1.7.2)
+    nokogiri (1.5.9)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -123,6 +124,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0.beta1)
   jbuilder (~> 1.0.1)
   jquery-rails
+  nokogiri
   rails (= 4.0.0.beta1)
   rspec-rails (~> 2.0)
   sass-rails (~> 4.0.0.beta1)
