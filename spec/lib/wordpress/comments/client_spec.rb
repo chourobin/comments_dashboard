@@ -5,12 +5,12 @@ require_relative '../../../support/match_date'
 #
 describe Wordpress::Comments::Client do
 
-  let(:client) { Wordpress::Comments::Client.new "http://mashable.com/comments/feed" }
+  let(:client) { Wordpress::Comments::Client.new "https://peepcode.com/code/rspec/comments/feed.xml" }
 
   describe "#initialize" do
 
     it "stores a URL" do
-      expect(client.url).to eq "http://mashable.com/comments/feed"
+      expect(client.url).to eq "https://peepcode.com/code/rspec/comments/feed.xml"
     end
 
   end
@@ -46,6 +46,14 @@ describe Wordpress::Comments::Client do
       expect(comment[:date]).to match_date '2012-07-18'
     end
 
+  end
+
+  describe "#fetch" do
+    let(:comments) { client.fetch }
+
+    it "build comment objects" do
+      expect(comments.length).to eq 30
+    end
   end
 
 end
