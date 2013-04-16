@@ -40,5 +40,14 @@ gem 'jbuilder', '~> 1.0.1'
 gem 'nokogiri'
 
 group :test, :development do
+  gem 'guard-livereload'
+  gem 'rack-livereload'
+
 	gem 'rspec-rails', '~> 2.0'
+  gem 'guard-rspec'
+  gem 'terminal-notifier-guard'
+
+  gem 'spring', github: 'jonleighton/spring'
+  gem 'listen'
+  gem 'rb-fsevent', :require => false  # mac os x
 end
