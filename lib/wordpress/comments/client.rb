@@ -21,6 +21,7 @@ module Wordpress
           item = {}
           item[:link] = doc_item.at('link').text
           item[:title] = doc_item.at('title').text
+          item[:commenter] = doc_item.xpath('dc:creator').text
           item
         end
       end
