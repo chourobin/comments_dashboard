@@ -258,7 +258,7 @@
       <pre class="code"><span class="info file"># File 'lib/wordpress/comments/client.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_url'>url</span>
-	<span class='ivar'>@url</span> <span class='op'>=</span> <span class='id identifier rubyid_url'>url</span>
+  <span class='ivar'>@url</span> <span class='op'>=</span> <span class='id identifier rubyid_url'>url</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -392,19 +392,21 @@
 23
 24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/wordpress/comments/client.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse'>parse</span> <span class='id identifier rubyid_xml'>xml</span>
-	<span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='const'>Nokogiri</span><span class='op'>::</span><span class='const'>XML</span> <span class='id identifier rubyid_xml'>xml</span>
-	<span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>item</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_doc_item'>doc_item</span><span class='op'>|</span>
-		<span class='id identifier rubyid_item'>item</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-		<span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='symbol'>:link</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_doc_item'>doc_item</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>link</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span>
-		<span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='symbol'>:title</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_doc_item'>doc_item</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span>
-		<span class='id identifier rubyid_item'>item</span>
-	<span class='kw'>end</span>
+  <span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='const'>Nokogiri</span><span class='op'>::</span><span class='const'>XML</span> <span class='id identifier rubyid_xml'>xml</span>
+  <span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>item</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_doc_item'>doc_item</span><span class='op'>|</span>
+    <span class='id identifier rubyid_item'>item</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+    <span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='symbol'>:link</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_doc_item'>doc_item</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>link</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span>
+    <span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='symbol'>:title</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_doc_item'>doc_item</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span>
+    <span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='symbol'>:commenter</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_doc_item'>doc_item</span><span class='period'>.</span><span class='id identifier rubyid_xpath'>xpath</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>dc:creator</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span>
+    <span class='id identifier rubyid_item'>item</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -416,7 +418,7 @@
 </div>
 
     <div id="footer">
-  Generated on Mon Apr 15 15:47:16 2013 by
+  Generated on Mon Apr 15 21:57:47 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.1 (ruby-2.0.0).
 </div>
