@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'open-uri'
 
 module Wordpress
   module Comments
@@ -10,6 +11,13 @@ module Wordpress
       # @param [String] url the url of the comments resource
       def initialize url
         @url = url
+      end
+
+      # fetch the xml data and return the parsed object
+      # @return [Array] an array of comments hashes from remote xml data
+      def fetch
+        xml = get @url
+        parse xml
       end
 
       # parse xml
@@ -25,6 +33,14 @@ module Wordpress
           item[:date] = DateTime.parse doc_item.xpath('pubDate').text
           item
         end
+      end
+
+      private
+
+      # get remote data
+      # @param [String] url the url of the comments resource
+      def get url
+        open url
       end
 
     end
