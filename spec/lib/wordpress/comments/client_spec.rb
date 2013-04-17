@@ -6,6 +6,7 @@ require_relative '../../../support/match_date'
 describe Wordpress::Comments::Client do
 
   let(:client) { Wordpress::Comments::Client.new "https://peepcode.com/code/rspec/comments/feed.xml" }
+  let(:xml) { File.read(File.join('spec', 'fixtures', 'feed.xml')) }
 
   describe "#initialize" do
 
@@ -16,8 +17,6 @@ describe Wordpress::Comments::Client do
   end
 
   describe "#parse" do
-
-    let(:xml) { File.read(File.join('spec', 'fixtures', 'feed.xml')) }
 
     let(:comments) { client.parse xml }
     let(:comment) { comments.first }
@@ -49,11 +48,51 @@ describe Wordpress::Comments::Client do
   end
 
   describe "#fetch" do
+
     let(:comments) { client.fetch }
 
-    it "build comment objects" do
-      expect(comments.length).to eq 30
+    context "success" do
+
+      before(:each) do
+        # tests pass faster
+        client.stub(:get).and_return(xml) #xml
+      end
+
+      it "builds comment objects" do
+        expect(comments.length).to eq 30
+      end
+
     end
+
+    # testing exceptions
+    context "bad URL" do
+
+      let(:client) { Wordpress::Comments::Client.new "not a url" }
+
+      it "raise error" do
+        # catches the error and passes test
+        expect {
+          client.fetch
+        }.to raise_error(Errno::ENOENT)
+      end
+
+    end
+
+    context "bad XML" do
+
+      before(:each) do
+        # tests pass faster
+        client.stub(:get).and_return("Bad XML") #xml
+      end
+
+      it "raise error from Nokogiri" do
+        expect {
+          client.fetch
+        }.to raise_error(Nokogiri::XML::SyntaxError)
+      end
+
+    end
+
   end
 
 end

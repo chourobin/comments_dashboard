@@ -24,7 +24,7 @@ module Wordpress
       # @param [XML] xml the xml data
       # @return [Array] an array of comments hashes from xml data
       def parse xml
-        doc = Nokogiri::XML xml
+        doc = Nokogiri::XML(xml) { |config| config.strict }
         doc.search('item').map do |doc_item|
           item = {}
           item[:link] = doc_item.at('link').text
